@@ -3,3 +3,5 @@ export type Task ={
     completed: boolean;
     text: string;
 }
+
+export type TaskList = Task[];
