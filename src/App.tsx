@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import type { TaskList } from "./types/Task";
 
 function App() {
@@ -7,6 +7,8 @@ function App() {
     { id: 2, completed: false, text: "Build a Todo List" },
     { id: 3, completed: false, text: "Have fun!" },
   ]);
+
+  const remainingTasks = useMemo(() => tasks.filter((task) => !task.completed).length, [tasks]);
 
   return (
     <div>
@@ -17,9 +19,10 @@ function App() {
         {tasks.map((task) => <div key={task.id}>
           <input type="checkbox" checked={task.completed} />
           <span>{task.text}</span>
+          <button>x</button>
         </div>)}
       </div>
-      <div>Remaining tasks: {tasks.filter((task) => !task.completed).length}</div>
+      <div>Remaining tasks: {remainingTasks}</div>
     </div>
   );
 }
