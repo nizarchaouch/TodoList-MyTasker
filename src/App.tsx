@@ -1,22 +1,33 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import type { TaskList } from "./types/Task";
 
 function App() {
-  const [tasks, setTasks] = useState<TaskList>([
-    { id: 1, completed: true, text: "Learn React" },
-    { id: 2, completed: false, text: "Build a Todo List" },
-    { id: 3, completed: false, text: "Have fun!" },
-  ]);
-
+  const [tasks, setTasks] = useState<TaskList>([]);
+  const newtaskRef = useRef<HTMLInputElement>(null);
   const remainingTasks = useMemo(() => tasks.filter((task) => !task.completed).length, [tasks]);
+ 
+  const handelAddTask = () => {
+    const current = newtaskRef.current;
+    const text = current?.value;
+    if (!text) return;
+    setTasks(prev => [...prev, { id: prev.length + 1, completed: false, text }]);
+    current!.value = "";
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handelAddTask();
+    }
+  };
+
 
   return (
     //<div className="min-h-screen flex items-center justify-center bg-gray-100"></div>
     <div className="max-w-xl mx-auto mt-10 p-4 bg-white flex flex-col gap-3 rounded-md shadow-md">
       <h1 className="text-2xl font-bold mb-4 text-gray-700">Todo List</h1>
       <div className="w-full flex gap-2" >
-        <input className="flex-1 border-b-2 border-r-2 border-gray-300 rounded-md py-1 px-2 mr-2 " type="text" placeholder="Add a new task..." />
-        <button className="bg-gray-700 rounded-md text-white py-1 px-2">+</button>
+        <input onKeyDown={handleKeyDown} ref={newtaskRef} className="flex-1 border-b-2 border-r-2 border-gray-300 rounded-md py-1 px-2 mr-2 " type="text" placeholder="Add a new task..." />
+        <button onClick={handelAddTask} className="bg-gray-700 rounded-md text-white py-1 px-2">+</button>
       </div>
       <div className="flex flex-col gap-3">
         {tasks.map((task) => <div key={task.id}>
@@ -25,7 +36,7 @@ function App() {
               <input type="checkbox" checked={task.completed} />
               <span>{task.text}</span>
             </div>
-            <button>x</button>
+            <button className="cursor-pointer">✖️</button>
           </div>
         </div>)}
       </div>
