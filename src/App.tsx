@@ -30,6 +30,12 @@ function App() {
     setTasks(newTaks);
   }
 
+  const handleTaskDeletion = (id: number) => {
+    let newTaks = [...tasks];
+    newTaks = newTaks.filter(task => task.id !== id)
+    setTasks(newTaks);
+  }
+
 
   return (
     //<div className="min-h-screen flex items-center justify-center bg-gray-100"></div>
@@ -46,7 +52,7 @@ function App() {
               <input type="checkbox" checked={task.completed} onChange={() => handleTaskCompletion(task.id)} />
               <span className={task.completed ? "line-through" : ""}>{task.text}</span>
             </div>
-            <button className="cursor-pointer">✖️</button>
+            <button className="cursor-pointer" onClick={() => handleTaskDeletion(task.id)}>✖️</button>
           </div>
         </div>)}
       </div>
