@@ -1,8 +1,8 @@
-import { useMemo, useRef, useState } from "react";
-import type { TaskList } from "./types/Task";
+import { useMemo, useRef } from "react";
+import useTasks from "./hooks/useTasks";
 
 function App() {
-  const [tasks, setTasks] = useState<TaskList>([]);
+  const { tasks, setTasks } = useTasks();
   const newtaskRef = useRef<HTMLInputElement>(null);
   const remainingTasks = useMemo(() => tasks.filter((task) => !task.completed).length, [tasks]);
 
