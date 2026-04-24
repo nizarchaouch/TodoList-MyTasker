@@ -18,7 +18,7 @@ function App() {
         text,
       },
     ]);
-    
+
     current!.value = "";
   }
 
@@ -51,17 +51,22 @@ function App() {
       <h1 className="text-2xl font-bold mb-4 text-gray-700">Todo List</h1>
       <div className="w-full flex gap-2" >
         <input onKeyDown={handleKeyDown} ref={newtaskRef} className="flex-1 border-b-2 border-r-2 border-gray-300 rounded-md py-1 px-2 mr-2 " type="text" placeholder="Add a new task..." />
-        <button onClick={handelAddTask} className="bg-gray-700 rounded-md text-white py-1 px-2">+</button>
+        <button onClick={handelAddTask} className="bg-gray-700 rounded-md text-white py-1 px-2 cursor-pointer hover:bg-gray-800">+</button>
       </div>
       <div className="flex flex-col gap-3">
-        {tasks.map((task) => <div key={task.id}>
-          <div className="border-1 border-gray-200 p-2 rounded-md flex justify-between">
-            <div className=" flex items-center gap-2">
-              <input type="checkbox" checked={task.completed} onChange={() => handleTaskCompletion(task.id)} />
-              <span className={task.completed ? "line-through" : ""}>{task.text} </span>
+        {tasks.length === 0 ? (
+          <p className="text-gray-600 py-2 text-md text-center">No tasks yet</p>
+        ) : tasks.map((task) => <div key={task.id}>
+          <div className="flex justify-between border-1 border-gray-200 p-2 rounded-md" >
+            <div className="w-full cursor-pointer" onClick={() => handleTaskCompletion(task.id)} >
+              <div className=" flex  items-center gap-2" >
+                <input type="checkbox" className="cursor-pointer" checked={task.completed} readOnly />
+                <span className={task.completed ? "line-through" : ""}>{task.text} </span>
+              </div>
             </div>
-            <button className="cursor-pointer" onClick={() => handleTaskDeletion(task.id)}>✖️</button>
+            <button className="cursor-pointer hover:bg-gray-200" onClick={() => handleTaskDeletion(task.id)}>✖️</button>
           </div>
+
         </div>)}
       </div>
       <div>Remaining tasks: {remainingTasks}</div>
