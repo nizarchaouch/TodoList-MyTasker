@@ -10,7 +10,15 @@ function App() {
     const current = newtaskRef.current;
     const text = current?.value;
     if (!text) return;
-    setTasks(prev => [...prev, { id: prev.length + 1, completed: false, text }]);
+    setTasks(prev => [
+      ...prev,
+      {
+        id: prev.length ? Math.max(...prev.map(task => task.id)) + 1 : 1,
+        completed: false,
+        text,
+      },
+    ]);
+    
     current!.value = "";
   }
 
@@ -50,7 +58,7 @@ function App() {
           <div className="border-1 border-gray-200 p-2 rounded-md flex justify-between">
             <div className=" flex items-center gap-2">
               <input type="checkbox" checked={task.completed} onChange={() => handleTaskCompletion(task.id)} />
-              <span className={task.completed ? "line-through" : ""}>{task.text}</span>
+              <span className={task.completed ? "line-through" : ""}>{task.text} </span>
             </div>
             <button className="cursor-pointer" onClick={() => handleTaskDeletion(task.id)}>✖️</button>
           </div>
