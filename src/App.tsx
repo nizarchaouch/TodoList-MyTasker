@@ -5,7 +5,7 @@ function App() {
   const [tasks, setTasks] = useState<TaskList>([]);
   const newtaskRef = useRef<HTMLInputElement>(null);
   const remainingTasks = useMemo(() => tasks.filter((task) => !task.completed).length, [tasks]);
- 
+
   const handelAddTask = () => {
     const current = newtaskRef.current;
     const text = current?.value;
@@ -20,6 +20,16 @@ function App() {
     }
   };
 
+  const handleTaskCompletion = (id: number) => {
+    const newTaks = [...tasks];
+    console.log("before newTaks", JSON.parse(JSON.stringify(newTaks)));
+    const task = newTaks.find(task => task.id === id);
+    if (!task) return;
+    task.completed = !task.completed;
+    console.log("after newTaks", JSON.parse(JSON.stringify(newTaks)));
+    setTasks(newTaks);
+  }
+
 
   return (
     //<div className="min-h-screen flex items-center justify-center bg-gray-100"></div>
@@ -33,8 +43,8 @@ function App() {
         {tasks.map((task) => <div key={task.id}>
           <div className="border-1 border-gray-200 p-2 rounded-md flex justify-between">
             <div className=" flex items-center gap-2">
-              <input type="checkbox" checked={task.completed} />
-              <span>{task.text}</span>
+              <input type="checkbox" checked={task.completed} onChange={() => handleTaskCompletion(task.id)} />
+              <span className={task.completed ? "line-through" : ""}>{task.text}</span>
             </div>
             <button className="cursor-pointer">✖️</button>
           </div>
