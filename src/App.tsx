@@ -29,19 +29,21 @@ function App() {
   };
 
   const handleTaskCompletion = (id: number) => {
-    const newTaks = [...tasks];
+    /* const newTaks = [...tasks];
     console.log("before newTaks", JSON.parse(JSON.stringify(newTaks)));
     const task = newTaks.find(task => task.id === id);
     if (!task) return;
     task.completed = !task.completed;
     console.log("after newTaks", JSON.parse(JSON.stringify(newTaks)));
-    setTasks(newTaks);
+    setTasks(newTaks); */
+    setTasks(prev => prev.map(task => task.id === id ? { ...task, completed: !task.completed } : task));
   }
 
   const handleTaskDeletion = (id: number) => {
-    let newTaks = [...tasks];
-    newTaks = newTaks.filter(task => task.id !== id)
-    setTasks(newTaks);
+    /*  let newTaks = [...tasks];
+     newTaks = newTaks.filter(task => task.id !== id)
+     setTasks(newTaks); */
+    setTasks(prev => prev.filter(task => task.id !== id));
   }
 
 
