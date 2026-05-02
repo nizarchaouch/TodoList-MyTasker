@@ -1,5 +1,7 @@
 import { useMemo, useRef } from "react";
 import useTasks from "./hooks/useTasks";
+import "./index.css";
+import Card from "./components/Card";
 
 function App() {
   const { tasks, setTasks } = useTasks();
@@ -48,30 +50,79 @@ function App() {
 
 
   return (
-    //<div className="min-h-screen flex items-center justify-center bg-gray-100"></div>
-    <div className="max-w-xl mx-auto mt-10 p-4 bg-white flex flex-col gap-3 rounded-md shadow-md">
-      <h1 className="text-2xl font-bold mb-4 text-gray-700">Todo List</h1>
-      <div className="w-full flex gap-2" >
-        <input onKeyDown={handleKeyDown} ref={newtaskRef} className="flex-1 border-b-2 border-r-2 border-gray-300 rounded-md py-1 px-2 mr-2 " type="text" placeholder="Add a new task..." />
-        <button onClick={handelAddTask} className="bg-gray-700 rounded-md text-white py-1 px-2 cursor-pointer hover:bg-gray-800">+</button>
+    <div className="grid md:min-h-screen grid-cols-1 p-4 md:grid-cols-2 md:items-center">
+      <div className="w-full  max-w-xl p-4 justify-self-end space-y-5 p-5">
+        <div className="inline-flex items-center bg-white/30  border border-gray-400  gap-2 rounded-full px-4 py-2 text-sm font-medium text-gray-600">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="stroke-orange-500 h-4 w-4 text-secondary"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path><path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path></svg>
+          Daily focus board
+        </div>
+        <h1 className="max-w-xl text-5xl font-black leading-tight tracking-normal text-foreground sm:text-6xl">
+          Organize today without the noise.
+        </h1>
+        <p className="max-w-lg text-lg leading-8 text-gray-600">
+          A clean TODO workspace for capturing tasks, tracking progress, and keeping the next action obvious.
+        </p>
+        <div className="flex justify-between gap-3">
+          <Card color="text-green-700" number="5" name="Tasks" />
+          <Card color="text-green-700" number="5" name="Done" />
+          <Card color="text-orange-500" number="50%" name="Focus" />
+        </div>
       </div>
-      <div className="flex flex-col gap-3">
-        {tasks.length === 0 ? (
-          <p className="text-gray-600 py-2 text-md text-center">No tasks yet</p>
-        ) : tasks.map((task) => <div key={task.id}>
-          <div className="flex justify-between border-1 border-gray-200 p-2 rounded-md" >
-            <div className="w-full cursor-pointer" onClick={() => handleTaskCompletion(task.id)} >
-              <div className=" flex  items-center gap-2" >
-                <input type="checkbox" className="cursor-pointer" checked={task.completed} readOnly />
-                <span className={task.completed ? "line-through" : ""}>{task.text} </span>
+      <div className="w-full max-w-xl p-4 bg-white flex flex-col gap-4 rounded-md shadow-xl">
+        <h1 className="text-2xl font-bold mb-4 text-gray-700">Todo List</h1>
+        <div className="w-full flex gap-2">
+          <input
+            onKeyDown={handleKeyDown}
+            ref={newtaskRef}
+            className="flex-1 border-b-2 border-r-2 border-gray-300 rounded-md py-1 px-2 mr-2 "
+            type="text"
+            placeholder="Add a new task..."
+          />
+          <button
+            onClick={handelAddTask}
+            className="bg-gray-700 rounded-md text-white py-1 px-2 cursor-pointer hover:bg-gray-800"
+          >
+            +
+          </button>
+        </div>
+        <div className="flex flex-col gap-3">
+          {tasks.length === 0 ? (
+            <p className="text-gray-600 py-2 text-md text-center">
+              No tasks yet
+            </p>
+          ) : (
+            tasks.map((task) => (
+              <div key={task.id}>
+                <div className="flex justify-between border-1 border-gray-200 p-2 rounded-md">
+                  <div
+                    className="w-full cursor-pointer"
+                    onClick={() => handleTaskCompletion(task.id)}
+                  >
+                    <div className=" flex  items-center gap-2">
+                      <input
+                        type="checkbox"
+                        className="cursor-pointer"
+                        checked={task.completed}
+                        readOnly
+                      />
+                      <span className={task.completed ? "line-through" : ""}>
+                        {task.text}{" "}
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    className="cursor-pointer hover:bg-gray-200"
+                    onClick={() => handleTaskDeletion(task.id)}
+                  >
+                    ✖️
+                  </button>
+                </div>
               </div>
-            </div>
-            <button className="cursor-pointer hover:bg-gray-200" onClick={() => handleTaskDeletion(task.id)}>✖️</button>
-          </div>
-
-        </div>)}
+            ))
+          )}
+        </div>
+        <div>Remaining tasks: {remainingTasks}</div>
       </div>
-      <div>Remaining tasks: {remainingTasks}</div>
     </div>
   );
 }
