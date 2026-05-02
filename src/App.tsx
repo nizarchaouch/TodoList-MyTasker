@@ -6,7 +6,10 @@ import Card from "./components/Card";
 function App() {
   const { tasks, setTasks } = useTasks();
   const newtaskRef = useRef<HTMLInputElement>(null);
-  const remainingTasks = useMemo(() => tasks.filter((task) => !task.completed).length, [tasks]);
+
+  const doneTasks = useMemo(() => tasks.filter((task) => task.completed).length, [tasks]);
+  const remainingTasks = tasks.length - doneTasks;
+  const progress = tasks.length ? Math.round((doneTasks / tasks.length) * 100) : 0;
 
   const handelAddTask = () => {
     const current = newtaskRef.current;
@@ -63,9 +66,9 @@ function App() {
           A clean TODO workspace for capturing tasks, tracking progress, and keeping the next action obvious.
         </p>
         <div className="flex justify-between gap-3">
-          <Card color="text-green-700" number="5" name="Tasks" />
-          <Card color="text-green-700" number="5" name="Done" />
-          <Card color="text-orange-500" number="50%" name="Focus" />
+          <Card color="text-green-700" number={remainingTasks} name="Tasks" />
+          <Card color="text-green-700" number={doneTasks} name="Done" />
+          <Card color="text-orange-500" number={`${progress}%`} name="Focus" />
         </div>
       </div>
       <div className="w-full max-w-xl p-4 bg-white flex flex-col gap-4 rounded-md shadow-xl">

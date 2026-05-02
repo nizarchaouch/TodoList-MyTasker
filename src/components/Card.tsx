@@ -1,6 +1,6 @@
 type CardProps = {
     name: string;
-    number: string
+    number: number | string;
     color: string;
 };
 
