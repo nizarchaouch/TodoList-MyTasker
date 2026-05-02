@@ -8,8 +8,20 @@ function App() {
   const newtaskRef = useRef<HTMLInputElement>(null);
 
   const doneTasks = useMemo(() => tasks.filter((task) => task.completed).length, [tasks]);
-  const remainingTasks = tasks.length - doneTasks;
+  const totalTasks = tasks.length;
   const progress = tasks.length ? Math.round((doneTasks / tasks.length) * 100) : 0;
+
+  const today = new Date();
+
+  const formattedDate = new Date()
+    .toLocaleDateString("en-GB", {
+      weekday: "short",
+      day: "2-digit",
+      month: "short",
+    })
+    .replace(" ", ", ");
+
+
 
   const handelAddTask = () => {
     const current = newtaskRef.current;
@@ -66,29 +78,38 @@ function App() {
           A clean TODO workspace for capturing tasks, tracking progress, and keeping the next action obvious.
         </p>
         <div className="flex justify-between gap-3">
-          <Card color="text-green-700" number={remainingTasks} name="Tasks" />
+          <Card color="text-green-700" number={totalTasks} name="Tasks" />
           <Card color="text-green-700" number={doneTasks} name="Done" />
           <Card color="text-orange-500" number={`${progress}%`} name="Focus" />
         </div>
       </div>
-      <div className="w-full max-w-xl p-4 bg-white flex flex-col gap-4 rounded-md shadow-xl">
-        <h1 className="text-2xl font-bold mb-4 text-gray-700">Todo List</h1>
+      {/* Tasks section */}
+      <div className="w-full max-w-xl p-5 flex flex-col gap-4 rounded-md shadow-xl bg-white/20 border border-gray-300">
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-black mb-4">Task list</h1>
+          <div className="flex items-center mr-1 border border-gray-200 rounded-full p-2 bg-white/30">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="h-4 w-4 text-[#187cc3]"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16.5 12"></polyline></svg>
+            <span className="text-sm text-gray-700 ml-1 font-medium">
+              {formattedDate}
+            </span>
+          </div>
+        </div>
         <div className="w-full flex gap-2">
           <input
             onKeyDown={handleKeyDown}
             ref={newtaskRef}
-            className="flex-1 border-b-2 border-r-2 border-gray-300 rounded-md py-1 px-2 mr-2 "
+            className="flex-1 border-b-2 border-2 border-gray-300 bg-[#fdfaf2] rounded-lg p-3 mr-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent transition-colors"
             type="text"
             placeholder="Add a new task..."
           />
           <button
             onClick={handelAddTask}
-            className="bg-gray-700 rounded-md text-white py-1 px-2 cursor-pointer hover:bg-gray-800"
+            className="bg-gradient-to-br from-[#188174] to-[#187cc3] text-white rounded-md text-white w-22 cursor-pointer transition-transform hover:scale-105"
           >
-            +
+            <p className="font-black">Add</p>
           </button>
         </div>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 ">
           {tasks.length === 0 ? (
             <p className="text-gray-600 py-2 text-md text-center">
               No tasks yet
@@ -96,7 +117,7 @@ function App() {
           ) : (
             tasks.map((task) => (
               <div key={task.id}>
-                <div className="flex justify-between border-1 border-gray-200 p-2 rounded-md">
+                <div className="flex justify-between border-1 border-gray-300 p-6 rounded-md bg-[#fdfaf2] transition-all hover:-translate-y-0.5 hover:border-primary/50 sm:gap-4 sm:p-4">
                   <div
                     className="w-full cursor-pointer"
                     onClick={() => handleTaskCompletion(task.id)}
@@ -104,13 +125,19 @@ function App() {
                     <div className=" flex  items-center gap-2">
                       <input
                         type="checkbox"
-                        className="cursor-pointer"
+                        className="h-5 w-5 cursor-pointer appearance-none rounded-full border border-gray-400 checked:border-[#188174] checked:bg-[#188174]"
                         checked={task.completed}
                         readOnly
                       />
-                      <span className={task.completed ? "line-through" : ""}>
-                        {task.text}{" "}
-                      </span>
+                      <div className="flex flex-col ">
+                        <span className={`font-bold ${task.completed ? "line-through" : ""}`}>
+                          {task.text}
+                        </span>
+                        <span className="font-medium text-sm text-gray-500">
+                          11:00
+                        </span>
+
+                      </div>
                     </div>
                   </div>
                   <button
@@ -124,9 +151,8 @@ function App() {
             ))
           )}
         </div>
-        <div>Remaining tasks: {remainingTasks}</div>
       </div>
-    </div>
+    </div >
   );
 }
 
