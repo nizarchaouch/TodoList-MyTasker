@@ -1,10 +1,17 @@
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import useTasks from "./hooks/useTasks";
 import "./index.css";
 import Card from "./components/Card";
+import DeltTask from "./components/Alert";
+
 
 function App() {
   const { tasks, setTasks } = useTasks();
+  const [taskToDelete, setTaskToDelete] = useState<{
+    id: number;
+    text: string;
+  } | null>(null);
+
   const newtaskRef = useRef<HTMLInputElement>(null);
 
   const doneTasks = useMemo(() => tasks.filter((task) => task.completed).length, [tasks]);
@@ -137,15 +144,14 @@ function App() {
                         <span className="font-medium text-sm text-gray-500">
                           {task.hour}
                         </span>
-
                       </div>
                     </div>
                   </div>
                   <button
-                    className="cursor-pointer hover:bg-gray-200"
-                    onClick={() => handleTaskDeletion(task.id)}
+                    className="group cursor-pointer py-2 px-3 rounded-md transition-colors hover:bg-gray-200"
+                    onClick={() => setTaskToDelete({ id: task.id, text: task.text })}
                   >
-                    ✖️
+                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-500 transition-colors group-hover:text-red-500"><path d="M10 11v6" /><path d="M14 11v6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" /><path d="M3 6h18" /><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
                   </button>
                 </div>
               </div>
@@ -153,7 +159,19 @@ function App() {
           )}
         </div>
       </div>
-    </div >
+      {taskToDelete && (
+        <DeltTask
+          id={taskToDelete.id}
+          nameTask={taskToDelete.text}
+          onCancel={() => setTaskToDelete(null)}
+          onDelete={() => {
+            handleTaskDeletion(taskToDelete.id);
+            setTaskToDelete(null);
+          }}
+        />
+      )}
+    </div>
+
   );
 }
 
