@@ -33,6 +33,7 @@ function App() {
         id: prev.length ? Math.max(...prev.map(task => task.id)) + 1 : 1,
         completed: false,
         text,
+        hour: `${today.getHours()}:${today.getMinutes()}`,
       },
     ]);
 
@@ -134,7 +135,7 @@ function App() {
                           {task.text}
                         </span>
                         <span className="font-medium text-sm text-gray-500">
-                          11:00
+                          {task.hour}
                         </span>
 
                       </div>
