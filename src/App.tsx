@@ -130,7 +130,7 @@ function App() {
                         readOnly
                       />
                       <div className="flex flex-col ">
-                        <span className={`font-bold ${task.completed ? "line-through" : ""}`}>
+                        <span className={`font-bold ${task.completed ? "line-through text-gray-500" : ""}`}>
                           {task.text}
                         </span>
                         <span className="font-medium text-sm text-gray-500">
