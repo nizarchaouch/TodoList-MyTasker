@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 type DeltTaskProps = {
-    id: number;
     nameTask: string;
     onCancel: () => void;
     onDelete: () => void;
 };
 
 
-export default function DeltTask({ id, nameTask, onCancel, onDelete }: DeltTaskProps) {
+export default function DeltTask({nameTask, onCancel, onDelete }: DeltTaskProps) {
 
     useEffect(() => {
         document.body.style.overflow = "hidden";

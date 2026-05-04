@@ -118,9 +118,9 @@ function App() {
           </button>
         </div>
         <div className="flex flex-col gap-3 ">
-          {tasks.length === 0 ? (
-            <p className="text-gray-600 py-2 text-md text-center">
-              No tasks yet
+          {totalTasks === 0 ? (
+            <p className="text-gray-600 py-2 text-center font-medium">
+              Nothing here yet
             </p>
           ) : (
             tasks.map((task) => (
@@ -158,10 +158,15 @@ function App() {
             ))
           )}
         </div>
+        {totalTasks === doneTasks && (
+          <span className="text-gray-500 text-sm text-center mt-4 animate-pulse
+">
+            All clear — enjoy your day.
+          </span>
+        )}
       </div>
       {taskToDelete && (
         <DeltTask
-          id={taskToDelete.id}
           nameTask={taskToDelete.text}
           onCancel={() => setTaskToDelete(null)}
           onDelete={() => {
