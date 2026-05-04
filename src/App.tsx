@@ -159,8 +159,7 @@ function App() {
           )}
         </div>
         {totalTasks === doneTasks && (
-          <span className="text-gray-500 text-sm text-center mt-4 animate-pulse
-">
+          <span className="text-gray-500 text-sm text-center mt-4 animate-pulse">
             All clear — enjoy your day.
           </span>
         )}
