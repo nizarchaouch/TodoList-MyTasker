@@ -158,7 +158,7 @@ function App() {
             ))
           )}
         </div>
-        {totalTasks === doneTasks && (
+        {totalTasks === doneTasks && totalTasks > 0 && (
           <span className="text-gray-500 text-sm text-center mt-4 animate-pulse">
             All clear — enjoy your day.
           </span>
