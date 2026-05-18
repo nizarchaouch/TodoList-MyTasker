@@ -16,7 +16,7 @@ Tasks are stored locally in the browser using **localStorage**, so they remain s
 
 ## Live Demo
 
-[View Live Project](https://your-username.github.io/Todo-list/)
+[View Live Project](https://nizarchaouch.github.io/TodoList-MyTasker/)
 
 ---
 
