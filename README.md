@@ -1,73 +1,122 @@
-# React + TypeScript + Vite
+# Todo List App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/React-Frontend-61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-Language-3178C6)
+![Vite](https://img.shields.io/badge/Vite-Build%20Tool-646CFF)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-Styling-38B2AC)
+![localStorage](https://img.shields.io/badge/localStorage-Persistence-orange)
+![Status](https://img.shields.io/badge/Status-TodoList%20Project-blue)
 
-Currently, two official plugins are available:
+A clean, responsive, and modern Todo List application built with **React.js**, **TypeScript**, **Vite**, and **Tailwind CSS**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The app allows users to add tasks, mark them as completed, delete tasks, and track their progress.  
+Tasks are stored locally in the browser using **localStorage**, so they remain saved even after refreshing the page.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Live Demo
 
-## Expanding the ESLint configuration
+[View Live Project](https://your-username.github.io/Todo-list/)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Demo
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+![Todo List Demo](./src/assets/screenshots/demo.gif)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## Screenshots
+
+### Home Page
+
+![Home Page](./src/assets/screenshots/home.png)
+
+### Tasks Added
+
+![Tasks Added](./src/assets/screenshots/tasks.png)
+![Task Added](./src/assets/screenshots/tasks.png)
+
+### Delete Confirmation Modal
+
+![Delete Confirmation](./src/assets/screenshots/delete-modal.png)
+
+---
+
+## Features
+
+- Add new tasks
+- Mark tasks as completed
+- Delete tasks with confirmation modal
+- Track total number of tasks
+- Track completed tasks
+- Show progress percentage
+- Store tasks in localStorage
+- Responsive design
+- Clean and modern UI
+- Built with React and TypeScript
+
+---
+
+## Technologies Used
+
+- React.js
+- TypeScript
+- Vite
+- Tailwind CSS
+- localStorage
+- ESLint
+- Git & GitHub
+- GitHub Pages
+
+---
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/nizarchaouch/TodoList-MyTasker.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Go to the project folder:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cd Todo-list
 ```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+---
+
+## Project Structure
+
+```bash
+Todo-list/
+├── public/
+├── src/
+│   ├── assets/
+│   │   └── screenshots/
+│   │       ├── demo.gif
+│   │       ├── home.png
+│   │       ├── tasks.png
+│   │       └── delete-modal.png
+│   ├── components/
+│   │   ├── Alert.tsx
+│   │   └── Card.tsx
+│   ├── hooks/
+│   │   └── useTasks.ts
+│   ├── types/
+│   │   └── Task.ts
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── index.css
+├── package.json
+├── vite.config.ts
+├── tsconfig.json
+└── README.md
+## Author
+**Nizar Chaouch**
