@@ -35,7 +35,7 @@ Tasks are stored locally in the browser using **localStorage**, so they remain s
 ### Tasks Added
 
 ![Tasks Added](./src/assets/screenshots/tasks.png)
-![Task Added](./src/assets/screenshots/tasks.png)
+![Task Added](./src/assets/screenshots/task.png)
 
 ### Delete Confirmation Modal
 
