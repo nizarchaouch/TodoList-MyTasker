@@ -118,5 +118,7 @@ Todo-list/
 ├── vite.config.ts
 ├── tsconfig.json
 └── README.md
+```
+---
 ## Author
 **Nizar Chaouch**
